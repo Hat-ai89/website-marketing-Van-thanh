@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Đồ Marketing Toàn Diện - Nệm Vạn Thành 2025–2030</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: #F0F4F8;
+            color: #333;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .chart-container-tall {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+            max-height: 500px;
+        }
+        .brand-card { background-color: #003F5C; color: white; }
+        .brand-card-inner { background-color: #2F4B7C; }
+        .brand-card-detail { background-color: #665191; }
+        .flow-step {
+            background-color: white;
+            border: 2px solid #003F5C;
+            color: #003F5C;
+            font-weight: bold;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            min-width: 180px;
+        }
+        .flow-arrow {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFA600;
+            margin: 0.5rem 1rem;
+            align-self: center;
+        }
+        
+        /* --- CSS CHO ACCORDION (Nội dung chi tiết) --- */
+        .accordion {
+            background-color: #003F5C;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-size: 1.75rem;
+            font-weight: bold;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .accordion:after {
+            content: '\002B'; /* Dấu cộng */
+            color: #FFA600;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+        .accordion.active:after {
+            content: "\2212"; /* Dấu trừ */
+        }
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 0.5rem;
+        }
+        .panel-content {
+            padding: 24px 12px;
+            border-top: 2px solid #F0F4F8;
+        }
+        .panel-content h4 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #665191;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .panel-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .panel-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .panel-content th, .panel-content td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .panel-content th {
+            background-color: #f2f2f2;
+        }
+        
+        /* --- CSS CHO TÍNH NĂNG AI --- */
+        .gemini-button {
+            background-image: linear-gradient(to right, #665191 0%, #003F5C 51%, #665191 100%);
+            margin: 10px 0;
+            padding: 12px 25px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            border-radius: 0.5rem;
+            display: block;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .gemini-button:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+        .gemini-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            min-height: 50px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        .prose {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .prose ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .prose li {
+            margin-bottom: 0.5rem;
+        }
+        .prose strong {
+            font-weight: bold;
+            color: #003F5C;
+        }
+
+        /* --- CSS CHO MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #665191;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-message {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+        .modal-close-btn {
+            background-color: #003F5C;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- CSS GÓP Ý --- */
+        .feedback-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.375rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+        .feedback-button {
+            background-image: linear-gradient(to right, #FFA600 0%, #D45087 51%, #FFA600 100%);
+            padding: 10px 20px;
+        }
+        .feedback-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .feedback-section {
+            font-weight: bold;
+            color: #003F5C;
+            font-size: 1.1rem;
+        }
+        .feedback-time {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .feedback-user {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 0.25rem;
+            word-break: break-all;
+        }
+        .feedback-content {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        /* --- CSS CHATBOT --- */
+        .chat-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-image: linear-gradient(to right, #665191 0%, #003F5C 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1010;
+            transition: transform 0.3s ease;
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            width: 90%;
+            max-width: 400px;
+            height: 500px;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 1009;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .chat-window.visible {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .chat-header {
+            background-color: #003F5C;
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #F0F4F8;
+        }
+        .chat-message {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+        .chat-message.user {
+            background-color: #003F5C;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .chat-message.model {
+            background-color: #e9ecef;
+            color: #333;
+            margin-right: auto;
+            text-align: left;
+        }
+        .chat-message.model.thinking {
+            display: flex;
+            align-items: center;
+        }
+        .chat-message.model.thinking .loader-dots {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #665191;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite both;
+        }
+        .chat-message.model.thinking .loader-dots:nth-child(2) { animation-delay: .2s; }
+        .chat-message.model.thinking .loader-dots:nth-child(3) { animation-delay: .4s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+        
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #ddd;
+            background-color: white;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem 0 0 0.25rem;
+            font-size: 0.9rem;
+        }
+        .chat-send {
+            background-color: #FFA600;
+            color: #003F5C;
+            border: none;
+            padding: 0 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 0 0.25rem 0.25rem 0;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <main class="max-w-7xl mx-auto p-4 sm:p-8">
+        
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2" style="color: #003F5C;">Bản Đồ Marketing Toàn Diện</h1>
+            <h2 class="text-2xl md:text-3xl font-semibold" style="color: #665191;">Nệm Vạn Thành 2025–2030</h2>
+            <!-- Thêm Tagline và Tác giả -->
+            <p class="text-lg italic text-gray-600 mt-4 max-w-3xl mx-auto">
+                “Định hướng chiến lược 360° từ truyền thống đến AI, dẫn lối giấc ngủ Việt ra tầm quốc tế.”
+            </p>
+            <p class="text-sm text-gray-500 mt-4 font-medium">
+                Người phụng sự: Hat.ai – Nhà Khởi Nghiệp Smart Up
+            </p>
+        </header>
+        
+        <button class="accordion">1. Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-center max-w-3xl mx-auto text-gray-600 mb-8">Thương hiệu Nệm Vạn Thành đang đối mặt với ba vấn đề lớn cản trở sự phát triển, đặc biệt trên mặt trận kỹ thuật số, gây ra xung đột kênh và làm suy giảm giá trị thương hiệu. 
+                Nội dung chi tiết dưới đây được trích từ file Word (.docx).</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow-xl p-6 flex flex-col justify-center items-center border-l-4 border-red-500">
+                        <div class="text-5xl mb-3">&#9888;</div>
+                        <h4 class="text-xl font-semibold mb-3" style="color: #D45087;">"Loạn Giá" Online</h4>
+                        <p class="text-gray-600 text-center">Các đại lý tự phát phá giá (chiết khấu 35%) trên kênh online, ảnh hưởng nghiêm trọng đến giá trị thương hiệu và tạo ra "cuộc nội chiến".</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-xl p-6 border-l-4" style="border-color: #FFA600;">
+                        <h4 class="text-xl font-semibold mb-3 text-center" style="color: #003F5C;">Xung Đột Kênh Phân Phối</h4>
+                        <p class="text-gray-600 mb-4 text-center">Sự chênh lệch lớn về chiết khấu và mức độ kiểm soát giữa hai kênh, tạo ra môi trường cạnh tranh không lành mạnh.</p>
+                        <div class="flex justify-around">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold" style="color: #003F5C;">~1000+</div>
+                                <div class="text-gray-700">Đại Lý</div>
+                                <div class="text-sm font-semibold" style="color: #D45087;">(CK ~28-40%)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-4xl font-bold" style="color: #665191;">44</div>
+                                <div class="text-gray-700">Showroom</div>
+                                <div class="text-sm font-semibold" style="color: #665191;">(CK ~20%)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-xl p-6 border-l-4" style="border-color: #665191;">
+                        <h4 class="text-xl font-semibold mb-3 text-center" style="color: #003F5C;">Điểm Yếu Kỹ Thuật Số</h4>
+                        <p class="text-gray-600 mb-4 text-center">Các kênh online chính thức thiếu chuyên nghiệp và không khai thác được dữ liệu người dùng.</p>
+                        <ul class="list-none space-y-2">
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Fanpage chính thức "không thể truy cập".</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Chatbot không hoạt động.</li>
+                            <li class="flex items-center"><span class="text-red-500 mr-2 font-bold text-xl">&#10060;</span> Không có dữ liệu 5W1H ("Hố đen dữ liệu").</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4>Phân tích 5W1H (Giải phẫu "Loạn giá")</h4>
+                <ul>
+                    <li><strong>WHAT:</strong> Tình trạng loạn giá quảng cáo. Các đại lý khác nhau chạy các mức chiết khấu khác nhau (ví dụ: 20% vs 25%) trên cùng một sản phẩm.</li>
+                    <li><strong>WHERE:</strong> Trên tất cả các kênh online (website đại lý, sàn TMĐT) và cả cửa hàng vật lý.</li>
+                    <li><strong>WHO:</strong> Thủ phạm là hệ thống 1000 đại lý và sự thiếu kiểm soát từ Vạn Thành. Nạn nhân là người tiêu dùng (bối rối) và chính Vạn Thành.</li>
+                    <li><strong>WHY (Gốc rễ):</strong> Xung đột kênh (Đại lý B hy sinh lợi nhuận để lấy doanh số) và "Hố đen dữ liệu" (Vạn Thành không có data khách cuối, nên công cụ duy nhất để thúc đẩy là "giảm giá").</li>
+                    <li><strong>HOW (Hậu quả):</strong> Khách hàng mất niềm tin, đại lý trung thành bị trừng phạt, Vạn Thành mất quyền định giá.</li>
+                </ul>
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 1) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-1" data-section-content="Bối Cảnh Hiện Tại & 3 Thách Thức Cốt Lõi: Loạn Giá Online, Xung Đột Kênh, Điểm Yếu Kỹ Thuật Số.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-1" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 1</h4>
+                    <textarea class="feedback-input" id="feedback-muc-1" rows="3" placeholder="Nhập góp ý của bạn cho Mục 1..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="1. Bối Cảnh" data-section-id="muc-1">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+
+            </div>
+        </div>
+
+        <button class="accordion">2. Phân Tích Định Vị Thị Trường</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-6">Biểu đồ thể hiện tương quan định vị của Nệm Vạn Thành so với các đối thủ chính. Vị thế của Vạn Thành là "Chất Lượng Bền Bỉ - Giá Hợp Lý", nhưng cần củng cố nhận diện này.
+                Nội dung chi tiết dưới đây (Ma trận) được trích từ file Word (.docx).</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="chart-container-tall">
+                            <canvas id="positioningChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-1">
+                        <h4>Ma trận So sánh Cạnh tranh</h4>
+                        <p>Bảng ma trận trực quan hóa vị trí "mắc kẹt" (stuck in the middle) của Vạn Thành.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thương hiệu</th>
+                                    <th>Định vị cốt lõi</th>
+                                    <th>USP Chính</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Kymdan</strong></td>
+                                    <td>Di sản, Cao cấp Tuyệt đối</td>
+                                    <td>Chất lượng vật liệu, Kiểm soát giá tuyệt đối</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dunlopillo</strong></td>
+                                    <td>Công nghệ Quốc tế (UK)</td>
+                                    <td>Công nghệ giấc ngủ (làm mát, lò xo)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Liên Á</strong></td>
+                                    <td>Tiêu chuẩn Quốc tế</td>
+                                    <td>Chứng chỉ (ECO, LGA), Bền vững</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Everon</strong></td>
+                                    <td>Phong cách Hàn Quốc</td>
+                                    <td>Thiết kế, Đa thương hiệu (Artemis)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kim Cương</strong></td>
+                                    <td>Đại chúng, Năng động</td>
+                                    <td>Kỷ lục Guinness, Phân phối siêu rộng (2000+)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vạn Thành</strong></td>
+                                    <td style="color: red;">(Không rõ ràng)</td>
+                                    <td>Di sản (1980), Phân phối rộng (1000+), NỘI CHIẾN KÊNH</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 2) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-2" data-section-content="Phân Tích Định Vị Thị Trường: So sánh Vạn Thành với Kymdan, Liên Á, Kim Cương. Vạn Thành đang 'mắc kẹt' ở giữa.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-2" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 2</h4>
+                    <textarea class="feedback-input" id="feedback-muc-2" rows="3" placeholder="Nhập góp ý của bạn cho Mục 2..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="2. Phân Tích Thị Trường" data-section-id="muc-2">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+
+            </div>
+        </div>
+
+        <button class="accordion">3. Chiến Lược Thương Hiệu (Tái định vị)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-6">File HTML đề xuất "Giấc Ngủ Bền Vững, Giá Trị Thật". File Word đề xuất một USP cụ thể hơn để giải quyết khủng hoảng niềm tin, tập trung vào di sản 40+ năm.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="brand-card rounded-lg p-6 shadow-lg text-center">
+                        <h4 class="text-xl font-bold mb-3">Đề xuất (File HTML)</h4>
+                        <p class="text-lg mb-4 italic">"Giấc Ngủ Bền Vững, Giá Trị Thật"</p>
+                        <div class="brand-card-inner rounded-lg p-4 mb-4">
+                            <h5 class="text-md font-semibold mb-2">Giá Trị Cốt Lõi</h5>
+                            <ul class="list-none space-y-1 text-sm">
+                                <li><strong>Bền Bỉ:</strong> Chất lượng vượt thời gian.</li>
+                                <li><strong>An Toàn:</strong> 100% nguyên liệu tinh khiết.</li>
+                                <li><strong>Chân Thật:</strong> Giá trị thật, không thổi phồng.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-6 shadow-lg text-center border-4 border-amber-500">
+                        <h4 class="text-xl font-bold mb-3" style="color: #003F5C;">Đề xuất Tái định vị (File Word)</h4>
+                        <p class="text-lg mb-4 italic font-bold" style="color: #D45087;">"VẠN THÀNH - BỀN BỈ TỪ 1980"</p>
+                        <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                            <h5 class="text-md font-semibold mb-2" style="color: #003F5C;">Chiến lược Kép</h5>
+                            <ul class="text-sm text-left list-disc ml-4 text-gray-700">
+                                <li><strong>Brand Building:</strong> Tái thiết Di sản. Kể lại câu chuyện 40+ năm, thay vì nói về "giảm giá".</li>
+                                <li><strong>Performance:</strong> Tái cấu trúc Kênh và Chuyển đổi số. Chấm dứt loạn giá và sở hữu dữ liệu.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG MỚI (MỤC 3) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý Sáng Tạo Slogan
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các khẩu hiệu mới dựa trên định vị "Bền Bỉ Từ 1980".</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateSloganButton">
+                            ✨ Tạo 5 Slogan Mới
+                        </button>
+                        <pre id="sloganResultBox" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 3) --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 3) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-3" data-section-content="Chiến Lược Thương Hiệu: Tái định vị là 'VẠN THÀNH - BỀN BỈ TỪ 1980' và chiến lược kép (Brand Building & Performance).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-3" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 3</h4>
+                    <textarea class="feedback-input" id="feedback-muc-3" rows="3" placeholder="Nhập góp ý của bạn cho Mục 3..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="3. Chiến Lược Thương Hiệu" data-section-id="muc-3">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+            </div>
+        </div>
+
+        <button class="accordion">4. Chiến Lược Marketing Sản Phẩm (Good-Better-Best)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto">File Word đề xuất tái cấu trúc danh mục sản phẩm theo mô hình "Good-Better-Best" (thay vì các tên gọi kỹ thuật) để định vị giá trị rõ ràng và áp dụng chiến thuật marketing riêng cho từng phân khúc.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                    <div class="md:col-span-1">
+                        <h4 style="color: #003F5C;">Tỷ Trọng Danh Mục (File HTML)</h4>
+                        <div class="chart-container">
+                            <canvas id="productMixChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <h4>Tái cấu trúc Good-Better-Best (File Word)</h4>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm">
+                                <h5 class="text-lg font-bold mb-2" style="color: #D45087;">1. GOOD (Tốt - Phân khúc Giá trị)</h5>
+                                <p class="text-sm text-gray-700 mb-2"><strong>Sản phẩm:</strong> Nệm Bông ép (Gòn), Nệm Mousse (Foam) cơ bản.</p>
+                                <p class="text-sm text-gray-700"><strong>Thông điệp:</strong> "Bền bỉ tối đa, chi phí tối thiểu." / "Giải pháp giấc ngủ kinh tế."</p>
+                                <p class="text-sm text-gray-700"><strong>Chiến thuật:</strong> SEO (từ khóa "nệm giá rẻ"), Ads (tập trung khuyến mãi, tính năng "gấp 3").</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm">
+                                <h5 class="text-lg font-bold mb-2" style="color: #665191;">2. BETTER (Tốt hơn - Phổ thông/Chủ lực)</h5>
+                                <p class="text-sm text-gray-700 mb-2"><strong>Sản phẩm:</strong> Nệm Lò xo (ví dụ: Ruby), Nệm Cao su thiên nhiên (ví dụ: Standard).</p>
+                                <p class="text-sm text-gray-700"><strong>Thông điệp:</strong> "Cân bằng hoàn hảo giữa Nâng đỡ & Êm ái."</p>
+                                <p class="text-sm text-gray-700"><strong>Chiến thuật:</strong> Video (YouTube/TikTok) so sánh trực quan, Influencer (Mid-tier) review trải nghiệm.</p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm">
+                                <h5 class="text-lg font-bold mb-2" style="color: #003F5C;">3. BEST (Tốt nhất - Cao cấp/Di sản)</h5>
+                                <p class="text-sm text-gray-700 mb-2"><strong>Sản phẩm:</strong> Nệm Cao su thiên nhiên cao cấp (Unique, Segovia), Nệm Hybrid.</p>
+                                <p class="text-sm text-gray-700"><strong>Thông điệp:</strong> "Di sản 40 năm cho giấc ngủ tinh hoa."</p>
+                                <p class="text-sm text-gray-700"><strong>Chiến thuật:</strong> PR & Storytelling (câu chuyện, quy trình sản xuất), Video chất lượng cao (cảm xúc), Thử nghiệm "100 Đêm Ngủ Thử".</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG MỚI (MỤC 4) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý Viết Mô Tả Sản Phẩm
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Chọn 1 phân khúc và để AI tạo mô tả sản phẩm (chuẩn SEO) cho website.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="productTierSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="GOOD">Phân khúc GOOD (Bông ép/Foam)</option>
+                                <option value="BETTER" selected>Phân khúc BETTER (Lò xo/Cao su Standard)</option>
+                                <option value="BEST">Phân khúc BEST (Cao su cao cấp)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateProductDescButton">
+                                ✨ Tạo Mô Tả
+                            </button>
+                        </div>
+                        <pre id="productDescResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 4) --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 4) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-4" data-section-content="Chiến Lược Sản Phẩm: Tái cấu trúc danh mục theo mô hình Good-Better-Best (Giá trị, Phổ thông, Cao cấp).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-4" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 4</h4>
+                    <textarea class="feedback-input" id="feedback-muc-4" rows="3" placeholder="Nhập góp ý của bạn cho Mục 4..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="4. Chiến Lược Sản Phẩm" data-section-id="muc-4">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+            </div>
+        </div>
+
+        <button class="accordion">5. Giải Pháp Cốt Lõi: Kênh Phân Phối (MAP, O2O & TMĐT)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-8 max-w-3xl mx-auto text-center">Đây là giải pháp trung tâm để giải quyết "loạn giá" (Nỗi đau 1). Sơ đồ O2O (từ file HTML) cho thấy luồng điều phối. Chi tiết về luật chơi (MAP, Sàn TMĐT) được bổ sung từ file Word.</p>
+                
+                <h4>Luồng điều phối O2O (File HTML)</h4>
+                <div class="flex flex-col md:flex-row justify-between items-center flex-wrap px-4 mb-6">
+                    <div class="flex flex-col items-center mb-4 md:mb-0"><div class="flow-step">Khách Hàng Online<br>(Web, TMĐT, Affiliate)</div></div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flex flex-col items-center mb-4 md:mb-0"><div class="flow-step" style="border-color: #FFA600; color: #FFA600;">Hệ Thống Vạn Thành<br>(Ghi nhận & Phân bổ)</div></div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flex flex-col items-center mb-4 md:mb-0"><div class="flow-step">Showroom / Đại Lý<br>(Gần nhất)</div></div>
+                    <div class="flow-arrow">&#8595;</div>
+                    <div class="flex flex-col items-center"><div class="flow-step" style="background-color: #003F5C; color: white;">Giao Hàng & CSKH<br>(Khách Hàng Hài Lòng)</div></div>
+                </div>
+
+                <h4>Giải pháp chi tiết (File Word)</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h5>Giải pháp 1: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu)</h5>
+                        <ul>
+                            <li><strong>Hành động:</strong> Ban hành luật chung cấm quảng cáo phá giá (ví dụ: không quảng cáo thấp hơn 15% so với giá niêm yết).</li>
+                            <li><strong>Mục đích:</strong> Lập lại trật tự thị trường, bảo vệ đại lý chân chính.</li>
+                            <li><strong>Chế tài:</strong> Vi phạm lần 1 (Cảnh cáo), Lần 2 (Cắt chiết khấu tháng), Lần 3 (Ngừng cung cấp hàng).</li>
+                        </ul>
+                        <h5>Giải pháp 2: Xây dựng hệ thống Affiliate</h5>
+                        <ul>
+                            <li><strong>Hành động:</strong> Xây dựng "Vạn Thành Affiliate Program" (qua AccessTrade, Haravan...).</li>
+                            <li><strong>Cơ chế:</strong> Thay vì KOC/Đại lý tự phá giá, họ sẽ nhận link affiliate và nhận hoa hồng chuẩn hóa từ Vạn Thành.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Giải pháp 3: Chiến lược Sàn TMĐT (Shopee/Lazada)</h5>
+                        <ul>
+                            <li><strong>Hành động:</strong> Mở 1 và chỉ 1 "Vạn Thành Official Mall" duy nhất.</li>
+                            <li><strong>Mục tiêu:</strong> Làm "neo giá" chuẩn, không tham gia flash-sale hủy diệt.</li>
+                            <li><strong>Hòa giải:</strong> Tích hợp Affiliate/O2O cho đại lý. Khuyến khích đại lý dẫn link về Mall để ăn hoa hồng, thay vì tự mở gian hàng phá giá.</li>
+                            <li><strong>Công nghệ:</strong> Dùng nền tảng Omnichannel (Haravan) để điều phối đơn từ Mall về kho đại lý gần nhất.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG MỚI (MỤC 5) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý Soạn Thảo Chính Sách
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI soạn thảo một email thông báo chuyên nghiệp về chính sách MAP (Giá quảng cáo tối thiểu) để gửi cho đại lý.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateMAPEmailButton">
+                            ✨ Soạn Thảo Email Thông Báo MAP
+                        </button>
+                        <pre id="mapEmailResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 5) --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 5) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-5" data-section-content="Giải Pháp Kênh Phân Phối: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu), xây dựng O2O và Affiliate, và chỉ mở 1 Official Mall.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-5" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 5</h4>
+                    <textarea class="feedback-input" id="feedback-muc-5" rows="3" placeholder="Nhập góp ý của bạn cho Mục 5..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="5. Giải Pháp Kênh" data-section-id="muc-5">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+            </div>
+        </div>
+
+        <button class="accordion">6. Kênh Truyền Thông & Tối Ưu Hóa (Digital Footprint)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-6">Chuyển dịch ngân sách từ quảng cáo ngắn hạn sang xây dựng tài sản thương hiệu dài hạn (SEO, AEO, VEO). Đây là giải pháp cho "Nỗi đau 2" (Khủng hoảng Tài sản số).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 style="color: #003F5C;">Phân Bổ Nguồn Lực (File HTML)</h4>
+                        <div class="chart-container">
+                            <canvas id="channelStrategyChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Chiến lược Tối ưu hóa Toàn diện (File Word)</h4>
+                        <ul>
+                            <li><strong>Khắc phục Khủng hoảng (Tuần 1):</strong> Lấy lại Fanpage chính thức, gửi xác thực "tick xanh". Sửa lỗi chatbot trên website.</li>
+                            <li><strong>SEO & SEO Local:</strong> Tạo và xác thực Google My Business (GMB) cho TẤT CẢ 1000+ đại lý. Khi khách tìm "nệm Vạn Thành gần đây", GMB của đại lý sẽ xuất hiện.</li>
+                            <li><strong>AEO (Answer Engine Optimization):</strong> Xây dựng cụm nội dung Hỏi-Đáp (FAQ) chuyên sâu để đón đầu AI (Gemini, ChatGPT) trả lời các câu hỏi như "So sánh nệm Vạn Thành và Kymdan?".</li>
+                            <li><strong>VEO (Video Engine Optimization):</strong>
+                                <ul>
+                                    <li><strong>TikTok:</strong> Dùng cho nội dung trải nghiệm, ASMR, test độ bền.</li>
+                                    <li><strong>YouTube:</strong> Dùng cho nội dung giáo dục (video dài phân biệt 4 loại nệm) và kể chuyện di sản.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Owned Community:</strong> Thành lập Facebook Group (ví dụ: "Hội Yêu Giấc Ngủ Việt") để thu thập Zero-Party Data (qua khảo sát) và lắng nghe khách hàng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG GEMINI API (MỤC 6) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Mô Phỏng AEO & Sáng Tạo Nội Dung
+                    </h4>
+                    
+                    <!-- Mô Phỏng AEO -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100 mb-6">
+                        <label for="aeoQueryInput" class="block text-md font-semibold mb-2" style="color: #665191;">1. Mô Phỏng AEO (Answer Engine)</label>
+                        <p class="text-sm text-gray-600 mb-4">Đặt câu hỏi so sánh (ví dụ: "so sánh nệm Vạn Thành và Kymdan") để xem AI trả lời thế nào.</p>
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <input type="text" id="aeoQueryInput" class="feedback-input mb-4 sm:mb-0 flex-1" placeholder="So sánh Vạn Thành và Liên Á...">
+                            <button class="gemini-button w-full sm:w-auto" id="aeoQueryButton">
+                                ✨ Hỏi AI
+                            </button>
+                        </div>
+                        <pre id="aeoQueryResult" class="result-box prose"></pre>
+                    </div>
+
+                    <!-- Sáng Tạo Nội Dung -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <label for="contentSelect" class="block text-md font-semibold mb-2" style="color: #665191;">2. Trợ Lý Sáng Tạo Nội Dung (VEO & Community)</label>
+                        <p class="text-sm text-gray-600 mb-4">Chọn một loại nội dung và để AI gợi ý ý tưởng.</p>
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="contentSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="tiktok">Ý tưởng Kịch bản TikTok (VEO)</option>
+                                <option value="facebook">Bài đăng Facebook Group (Community)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateContentButton">
+                                ✨ Tạo Ý Tưởng
+                            </button>
+                        </div>
+                        <pre id="contentResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- TÍNH NĂNG GEMINI API KẾT THÚC --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 6) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-6" data-section-content="Kênh Truyền Thông & Tối Ưu Hóa: Chuyển dịch ngân sách sang SEO Local (GMB), AEO (Answer Engine), VEO (Video), và Owned Community.">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-6" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 6</h4>
+                    <textarea class="feedback-input" id="feedback-muc-6" rows="3" placeholder="Nhập góp ý của bạn cho Mục 6..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="6. Kênh Truyền Thông" data-section-id="muc-6">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+            </div>
+        </div>
+
+        <button class="accordion">7. Cơ Hội Tăng Trưởng Mới (One-Stop-Shop)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-700 mb-6">Tận dụng không gian trống (tầng 2, 3, 4) tại 44 showroom để phát triển mảng kinh doanh mới, tạo ra hệ sinh thái bổ trợ và gia tăng doanh thu trên mỗi điểm bán (AOV).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div class="border-2 rounded-lg p-6 text-center" style="border-color: #FFA600; border-style: dashed; background-color: #fef9e7;">
+                        <div class="text-6xl mb-4">&#128719;</div>
+                        <h4 class="text-2xl font-bold mb-3" style="color: #003F5C;">Mô Hình Showroom Tích Hợp (File HTML)</h4>
+                        <p class="text-lg text-gray-700">Phát triển công ty con chuyên về <strong>Thiết Kế & Thi Công Nội Thất Phòng Ngủ</strong>, tận dụng không gian showroom làm nơi trưng bày và văn phòng tư vấn.</p>
+                        <p class="text-base font-semibold mt-4" style="color: #665191;">(Tạo phễu bán chéo: Nệm + Nội Thất)</p>
+                    </div>
+                    <div>
+                        <h4>Lộ trình triển khai (File Word)</h4>
+                        <ul>
+                            <li><strong>Giai đoạn 1 (Cross-sell):</strong> Bổ sung ngay các sản phẩm liên quan trực tiếp (giường, tủ đầu giường, chăn ga gối) vào danh mục.</li>
+                            <li><strong>Giai đoạn 2 (Co-location):</strong> Tận dụng tầng trống để mời các thương hiệu nội thất khác (đèn, rèm cửa) vào cùng trưng bày, chia sẻ lợi nhuận.</li>
+                            <li><strong>Giai đoạn 3 (Total Solution):</strong> Phát triển các gói "combo phòng ngủ" (Gói Cưới, Gói Chung cư) bao gồm (nệm + giường + tủ) với giá ưu đãi.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- --- TÍNH NĂNG MỚI --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý Phát Triển Gói Combo
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Chọn một loại combo và để AI phác thảo chi tiết (sản phẩm, thông điệp) cho gói đó.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <select id="comboTypeSelect" class="feedback-input mb-4 sm:mb-0 flex-1">
+                                <option value="Gói Cưới (Lãng mạn & Bền bỉ)">Gói Cưới (Lãng mạn & Bền bỉ)</option>
+                                <option value="Gói Chung cư (Tối ưu không gian)">Gói Chung cư (Tối ưu không gian)</option>
+                                <option value="Gói Sức khỏe (Cao cấp & Nâng đỡ)">Gói Sức khỏe (Cao cấp & Nâng đỡ)</option>
+                            </select>
+                            <button class="gemini-button w-full sm:w-auto" id="generateComboButton">
+                                ✨ Lên Ý Tưởng
+                            </button>
+                        </div>
+                        <pre id="comboResultBox" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG MỚI --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 7) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-7" data-section-content="Cơ Hội Tăng Trưởng Mới: Tận dụng 44 showroom để làm 'One-Stop-Shop' (Nội thất phòng ngủ, Gói Combo).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-7" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 7</h4>
+                    <textarea class="feedback-input" id="feedback-muc-7" rows="3" placeholder="Nhập góp ý của bạn cho Mục 7..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="7. Cơ Hội Tăng Trưởng" data-section-id="muc-7">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+            </div>
+        </div>
+
+        <button class="accordion">8. Lộ Trình Thực Thi & KPIs (Chi tiết)</button>
+        <div class="panel">
+            <div class="panel-content">
+                <p class="text-gray-600 mb-6">Phần này được bổ sung hoàn toàn từ file Word (.docx) để cung cấp một kế hoạch hành động và ma trận đo lường rõ ràng.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4>Kế hoạch 3 tháng ("Cầm máu & Xây móng")</h4>
+                        <ul>
+                            <li><strong>Tuần 1-4:</strong> Ban hành chính sách MAP đến 1000 đại lý. Lấy lại Fanpage, xin "tick xanh", sửa chatbot.</li>
+                            <li><strong>Tháng 2:</strong> Khởi động dự án GMB (Google My Business) cho 100 đại lý chủ lực. Tối ưu lại website với câu chuyện di sản.</li>
+                            <li><strong>Tháng 3:</strong> Ra mắt Kênh TikTok và Facebook Group. Triển khai nền tảng Affiliate. Ra mắt Official Mall (Giai đoạn 1).</li>
+                        </ul>
+                        
+                        <h4>Kế hoạch 1 năm ("Tăng trưởng & Chuyển đổi")</h4>
+                        <ul>
+                            <li><strong>Quý 2:</strong> Hoàn thành 80% GMB cho hệ thống. Vận hành chiến lược GBB (Good-Better-Best).</li>
+                            <li><strong>Quý 3:</strong> Thí điểm mô hình "One-Stop-Shop" tại 5 showroom lớn. Ra mắt chiến dịch Brand Storytelling lớn.</li>
+                            <li><strong>Quý 4:</strong> Facebook Group đạt 50.000 thành viên. Đánh giá hiệu quả MAP và O2O.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>KPIs Đo lường (Tóm tắt)</h4>
+                        <ul>
+                            <li><strong>Tỷ lệ vi phạm MAP:</strong> Giảm > 90%.</li>
+                            <li><strong>Số lượng leads O2O:</strong> Tăng (đo lường số leads từ web chuyển về đại lý).</li>
+                            <li><strong>Doanh thu Affiliate:</strong> Tăng.</li>
+                            <li><strong>Chỉ số cảm xúc (Brand Sentiment):</strong> Tăng.</li>
+                            <li><strong>AOV (Giá trị đơn hàng trung bình):</strong> Tăng (đặc biệt tại showroom thí điểm).</li>
+                            <li><strong>Thứ hạng GMB:</strong> 100 đại lý top đạt thứ hạng cao.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4>Ma trận Marketing Tổng thể (Master Marketing Matrix)</h4>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mục tiêu chiến lược</th>
+                                <th>Kênh chính</th>
+                                <th>Chiến thuật</th>
+                                <th>KPI đo lường</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Chấm dứt loạn giá</td>
+                                <td>1000 đại lý</td>
+                                <td>Áp dụng chính sách MAP</td>
+                                <td>Tỷ lệ vi phạm MAP (giảm >90%)</td>
+                            </tr>
+                            <tr>
+                                <td>2. Hòa giải xung đột kênh</td>
+                                <td>Website, Google Maps</td>
+                                <td>Triển khai O2O & SEO Local</td>
+                                <td>Số leads O2O chuyển về đại lý</td>
+                            </tr>
+                            <tr>
+                                <td>3. Chuẩn hóa hoa hồng</td>
+                                <td>KOC/KOL</td>
+                                <td>Xây dựng hệ thống Affiliate</td>
+                                <td>Doanh thu (GMV) từ Affiliate</td>
+                            </tr>
+                            <tr>
+                                <td>4. Lấy lại niềm tin</td>
+                                <td>Social, PR</td>
+                                <td>Khắc phục tài sản số, Brand Storytelling</td>
+                                <td>Chỉ số cảm xúc (Sentiment)</td>
+                            </tr>
+                            <tr>
+                                <td>5. Sở hữu dữ liệu</td>
+                                <td>Facebook Group</td>
+                                <td>Xây dựng "Owned Community"</td>
+                                <td>Số lượng data (từ khảo sát)</td>
+                            </tr>
+                            <tr>
+                                <td>6. Tăng AOV</td>
+                                <td>Showroom</td>
+                                <td>Thí điểm "One-Stop-Shop"</td>
+                                <td>Tỷ lệ bán chéo (nệm + giường)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- --- TÍNH NĂNG MỚI (MỤC 8) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý Báo Cáo KPI
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI phác thảo một email báo cáo tiến độ (dựa trên KPIs) để gửi cho ban lãnh đạo.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full" id="generateKPIReportButton">
+                            ✨ Soạn Thảo Email Báo Cáo Tiến Độ
+                        </button>
+                        <pre id="kpiReportResult" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG MỚI (MỤC 8) --- -->
+
+                <!-- --- TÍNH NĂNG AI MỞ RỘNG MỚI (MỤC 8) --- -->
+                <div class="mt-10 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-3 text-center" style="color: #003F5C;">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">✨</span>
+                        Trợ Lý AI: Gợi Ý Câu Hỏi Mở Rộng
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4 text-center">Bấm để AI gợi ý các câu hỏi/vấn đề cần thảo luận thêm cho mục này.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-100">
+                        <button class="gemini-button w-full brainstorm-button" data-section-id="muc-8" data-section-content="Lộ Trình Thực Thi & KPIs: Kế hoạch 3 tháng 'Cầm máu & Xây móng', và KPIs (Giảm vi phạm MAP, Tăng leads O2O, Tăng AOV).">
+                            ✨ Gợi Ý 3 Câu Hỏi/Vấn Đề Thảo Luận
+                        </button>
+                        <pre id="brainstormResult-muc-8" class="result-box prose"></pre>
+                    </div>
+                </div>
+                <!-- --- KẾT THÚC TÍNH NĂNG AI --- -->
+
+                <!-- --- GÓP Ý TỪNG PHẦN --- -->
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-400">
+                    <h4 class="text-lg font-semibold mb-3" style="color: #FFA600;">Góp Ý Cho Mục 8</h4>
+                    <textarea class="feedback-input" id="feedback-muc-8" rows="3" placeholder="Nhập góp ý của bạn cho Mục 8..."></textarea>
+                    <button class="gemini-button feedback-button" data-section-name="8. Lộ Trình & KPIs" data-section-id="muc-8">
+                        Gửi Góp Ý
+                    </button>
+                </div>
+                <!-- --- KẾT THÚC GÓP Ý --- -->
+
+            </div>
+        </div>
+
+        <!-- --- MỤC GÓP Ý MỚI (ĐÃ CHUYỂN XUỐNG CUỐI) --- -->
+        <button class="accordion" id="feedbackAccordionButton" style="background-color: #FFA600; color: #003F5C; margin-top: 2rem;">
+            Xem Góp Ý Chung (0)
+        </button>
+        <div class="panel">
+            <div class="panel-content" id="feedbackDisplayArea">
+                <p class="text-gray-600">Đang tải góp ý...</p>
+            </div>
+        </div>
+        <!-- --- KẾT THÚC MỤC GÓP Ý --- -->
+
+    </main>
+    
+    <footer class="text-center p-6 mt-8 text-sm text-gray-500 border-t border-gray-200">
+        Báo cáo Chiến lược Marketing - Nệm Vạn Thành (Bản gộp tương tác).
+    </footer>
+
+    <!-- Modal cho Loading / Error -->
+    <div id="loadingModal" class="modal-overlay">
+        <div class="modal-content">
+            <div id="modalContent">
+                <div class="loader"></div>
+                <div class="modal-message">Đang xử lý yêu cầu...</div>
+            </div>
+            <button id="modalCloseButton" class="modal-close-btn" style="display: none;">Đóng</button>
+        </div>
+    </div>
+    <!-- Kết thúc Modal -->
+
+    <!-- Chatbot UI -->
+    <div id="chatFab" class="chat-fab">
+        <span>&#129302;</span> <!-- Robot emoji -->
+    </div>
+    <div id="chatWindow" class="chat-window">
+        <div class="chat-header">
+            <span>Trợ Lý Kế Hoạch AI</span>
+            <button id="chatClose" class="chat-close">&times;</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message model">Xin chào! Tôi có thể giúp gì cho bạn về kế hoạch marketing này?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Hỏi tôi bất cứ điều gì...">
+            <button id="chatSend" class="chat-send">&#10148;</button> <!-- Send icon -->
+        </div>
+    </div>
+    <!-- Kết thúc Chatbot UI -->
+
+
+    <script type="module">
+        // --- IMPORT FIREBASE ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            addDoc, 
+            onSnapshot, 
+            collection, 
+            query, 
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // --- CẤU HÌNH FIREBASE & BIẾN TOÀN CỤC ---
+        const firebaseConfig = (typeof __firebase_config !== 'undefined' && __firebase_config)
+            ? JSON.parse(__firebase_config)
+            : { apiKey: "FALLBACK_API_KEY", authDomain: "FALLBACK_AUTH_DOMAIN", projectId: "FALLBACK_PROJECT_ID" }; // Fallback
+        
+        const appId = (typeof __app_id !== 'undefined' && __app_id) ? __app_id : 'default-app-id';
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const feedbackCollectionName = `artifacts/${appId}/public/data/marketing-feedback`;
+        const feedbackCollection = collection(db, feedbackCollectionName);
+        
+        let userId = null;
+        let isAuthReady = false;
+
+        // --- HÀM TIỆN ÍCH ---
+
+        /**
+         * Hiển thị modal thông báo (loading hoặc lỗi)
+         */
+        const showModal = (message, isLoading = false) => {
+            const loadingModal = document.getElementById('loadingModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalCloseButton = document.getElementById('modalCloseButton');
+
+            if (!loadingModal || !modalContent || !modalCloseButton) return; // Bảo vệ
+
+            loadingModal.classList.add('visible');
+            if (isLoading) {
+                modalContent.innerHTML = `<div class="loader"></div><div class="modal-message">${message}</div>`;
+                modalCloseButton.style.display = 'none';
+            } else {
+                modalContent.innerHTML = `<div class="modal-message" style="color: ${message.startsWith('Lỗi') ? '#D45087' : '#003F5C'};">${message}</div>`;
+                modalCloseButton.style.display = 'block';
+            }
+        };
+
+        /**
+         * Đóng modal
+         */
+        const closeModal = () => {
+            const loadingModal = document.getElementById('loadingModal');
+            if (loadingModal) loadingModal.classList.remove('visible');
+        };
+
+        /**
+         * Gọi Gemini API (Cho các nút trong mục)
+         */
+        const callGeminiAPI = async (systemPrompt, userPrompt, resultElement) => {
+            showModal('AI đang suy nghĩ...', true);
+            
+            // Vô hiệu hóa tất cả các nút AI
+            document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = true);
+            
+            try {
+                const apiKey = ""; // API key sẽ được tự động cung cấp
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userPrompt }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const text = candidate.content.parts[0].text;
+                    resultElement.innerHTML = text; // Dùng innerHTML để render Markdown (nếu có)
+                    showModal('Đã nhận được phản hồi!', false);
+                } else {
+                    throw new Error('Phản hồi từ AI không hợp lệ.');
+                }
+
+            } catch (error) {
+                console.error('Lỗi gọi Gemini API:', error);
+                resultElement.textContent = 'Đã xảy ra lỗi khi gọi AI. Vui lòng thử lại.';
+                showModal(`Lỗi: ${error.message}`, false);
+            } finally {
+                // Mở lại tất cả các nút AI
+                document.querySelectorAll('.gemini-button').forEach(btn => btn.disabled = false);
+            }
+        };
+
+        /**
+         * Định dạng thời gian
+         */
+        const formatTimestamp = (timestamp) => {
+            if (!timestamp) return 'Vừa xong';
+            const date = timestamp.toDate();
+            return date.toLocaleString('vi-VN', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric', 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        };
+
+        // --- HÀM KHỞI TẠO CHÍNH ---
+
+        /**
+         * Ưu tiên 1: Khởi tạo giao diện (UI)
+         * Chạy ngay lập tức, không chờ Firebase
+         */
+        const initializeUI = () => {
+            console.log("Bắt đầu khởi tạo UI...");
+
+            // --- Lấy các phần tử UI (Modal) ---
+            const modalCloseButton = document.getElementById('modalCloseButton');
+            if (modalCloseButton) {
+                modalCloseButton.addEventListener('click', closeModal);
+            }
+
+            // --- Lấy các phần tử UI (AI) ---
+            const acc = document.getElementsByClassName("accordion");
+            const aeoQueryInput = document.getElementById('aeoQueryInput');
+            const aeoQueryButton = document.getElementById('aeoQueryButton');
+            const aeoQueryResult = document.getElementById('aeoQueryResult');
+            const contentSelect = document.getElementById('contentSelect');
+            const generateContentButton = document.getElementById('generateContentButton');
+            const contentResult = document.getElementById('contentResult');
+            const comboTypeSelect = document.getElementById('comboTypeSelect');
+            const generateComboButton = document.getElementById('generateComboButton');
+            const comboResultBox = document.getElementById('comboResultBox');
+            const generateSloganButton = document.getElementById('generateSloganButton');
+            const sloganResultBox = document.getElementById('sloganResultBox');
+            const generateKPIReportButton = document.getElementById('generateKPIReportButton');
+            const kpiReportResultBox = document.getElementById('kpiReportResult');
+            const generateProductDescButton = document.getElementById('generateProductDescButton');
+            const productDescResult = document.getElementById('productDescResult');
+            const generateMAPEmailButton = document.getElementById('generateMAPEmailButton');
+            const mapEmailResult = document.getElementById('mapEmailResult');
+            
+            // --- Lấy các phần tử UI (Chatbot) ---
+            const chatFab = document.getElementById('chatFab');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatClose = document.getElementById('chatClose');
+            const chatInput = document.getElementById('chatInput');
+            const chatSend = document.getElementById('chatSend');
+
+            // 1. Khởi tạo Accordion
+            try {
+                for (let i = 0; i < acc.length; i++) {
+                    acc[i].addEventListener("click", function() {
+                        this.classList.toggle("active");
+                        const panel = this.nextElementSibling;
+                        if (panel.style.maxHeight) {
+                            panel.style.maxHeight = null;
+                        } else {
+                            panel.style.maxHeight = panel.scrollHeight + "px";
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Lỗi khởi tạo Accordion:", e);
+            }
+
+            // 2. Khởi tạo Biểu đồ (với try...catch)
+            const wrapLabels = (label, maxWidth) => {
+                if (typeof label !== 'string' || label.length <= maxWidth) { return label; }
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach((word) => {
+                    if (currentLine === '') {
+                        currentLine = word;
+                    } else if ((currentLine + ' ' + word).length <= maxWidth) {
+                        currentLine += ' ' + word;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    }
+                });
+                lines.push(currentLine);
+                return lines;
+            };
+
+            const tooltipCallbacks = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) { return label.join(' '); } 
+                                else { return label; }
+                            }
+                        }
+                    }
+                }
+            };
+            
+            const CHART_COLORS = {
+                primary: '#003F5C',
+                secondary: '#665191',
+                accent1: '#FFA600',
+                accent2: '#D45087',
+                accent3: '#A05195',
+                accent4: '#F95D6A',
+                lightGray: '#DDDDDD'
+            };
+
+            try {
+                const positioningCtx = document.getElementById('positioningChart');
+                if (positioningCtx) {
+                    new Chart(positioningCtx, {
+                        type: 'bubble',
+                        data: {
+                            datasets: [
+                                { label: 'Nệm Vạn Thành', data: [{ x: 5, y: 7, r: 15 }], backgroundColor: CHART_COLORS.primary, borderColor: CHART_COLORS.primary },
+                                { label: 'Kymdan', data: [{ x: 10, y: 10, r: 20 }], backgroundColor: CHART_COLORS.accent2 },
+                                { label: 'Liên Á', data: [{ x: 7, y: 8, r: 12 }], backgroundColor: CHART_COLORS.secondary },
+                                { label: 'Kim Cương', data: [{ x: 6, y: 7, r: 10 }], backgroundColor: CHART_COLORS.accent1 },
+                                { label: 'Dunlopillo', data: [{ x: 9, y: 9, r: 8 }], backgroundColor: CHART_COLORS.accent3 },
+                                { label: 'Everon', data: [{ x: 7, y: 6, r: 7 }], backgroundColor: CHART_COLORS.accent4 }
+                            ]
+                        },
+                        options: {
+                            ...tooltipCallbacks,
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            scales: {
+                                x: { title: { display: true, text: 'Giá Bán (Thấp -> Cao)' }, min: 3, max: 11 },
+                                y: { title: { display: true, text: 'Chất Lượng & Độ Bền (Trung Bình -> Cao Cấp)' }, min: 4, max: 11 }
+                            },
+                            plugins: { ...tooltipCallbacks.plugins, legend: { position: 'bottom' }, title: { display: false } }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Lỗi tải Biểu đồ Định vị (Chart.js có thể chưa tải):", e);
+                const positioningCtx = document.getElementById('positioningChart');
+                if (positioningCtx) positioningCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
+            }
+            
+            try {
+                const productMixCtx = document.getElementById('productMixChart');
+                if (productMixCtx) {
+                    const rawLabels = ['Cao su Thiên nhiên', 'Nệm Lò xo', 'Nệm Mouse (Foam)', 'Nệm Gòn'];
+                    const wrappedLabels = rawLabels.map(label => wrapLabels(label, 16));
+                    new Chart(productMixCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: wrappedLabels,
+                            datasets: [{
+                                label: 'Tỷ Trọng Sản Phẩm',
+                                data: [45, 30, 15, 10],
+                                backgroundColor: [ CHART_COLORS.primary, CHART_COLORS.secondary, CHART_COLORS.accent1, CHART_COLORS.accent2 ],
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                                ...tooltipCallbacks,
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            plugins: { ...tooltipCallbacks.plugins, legend: { position: 'bottom', labels: { font: { size: 11 } } } }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Lỗi tải Biểu đồ Sản phẩm (Chart.js có thể chưa tải):", e);
+                const productMixCtx = document.getElementById('productMixChart');
+                if (productMixCtx) productMixCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
+            }
+
+            try {
+                const channelStrategyCtx = document.getElementById('channelStrategyChart');
+                if (channelStrategyCtx) {
+                    const rawLabels = ['Hiện tại (Ước tính)', 'Mục tiêu (1 Năm)'];
+                    const wrappedLabels = rawLabels.map(label => wrapLabels(label, 16));
+                    new Chart(channelStrategyCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: wrappedLabels,
+                            datasets: [
+                                { label: 'Social Ads (FB, TikTok)', data: [60, 30], backgroundColor: CHART_COLORS.accent4, stack: 'strategy' },
+                                { label: 'SEO / AEO / VEO', data: [10, 40], backgroundColor: CHART_COLORS.primary, stack: 'strategy' },
+                                { label: 'Affiliate / TMĐT', data: [20, 20], backgroundColor: CHART_COLORS.accent1, stack: 'strategy' },
+                                { label: 'PR / Brand Storytelling', data: [10, 10], backgroundColor: CHART_COLORS.secondary, stack: 'strategy' }
+                            ]
+                        },
+                        options: {
+                            ...tooltipCallbacks,
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: 'Phân Bổ Nguồn Lực (%)' } } },
+                            plugins: { ...tooltipCallbacks.plugins, title: { display: false }, legend: { position: 'bottom' } }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Lỗi tải Biểu đồ Kênh (Chart.js có thể chưa tải):", e);
+                const channelStrategyCtx = document.getElementById('channelStrategyChart');
+                if (channelStrategyCtx) channelStrategyCtx.parentElement.innerHTML = "<p class='text-red-500 text-center'>Không thể tải biểu đồ.</p>";
+            }
+
+            // 3. Khởi tạo Gắn Event Listeners cho các nút AI
+            
+            // 3.1. Nút "Mô Phỏng AEO" (Mục 6)
+            if (aeoQueryButton) {
+                aeoQueryButton.addEventListener('click', () => {
+                    const query = aeoQueryInput.value || "So sánh nệm Vạn Thành và Kymdan";
+                    const systemPrompt = "Bạn là một chuyên gia về nệm. Hãy trả lời câu hỏi của người dùng một cách khách quan, công bằng, nêu bật điểm mạnh của Vạn Thành (Bền bỉ, Giá hợp lý) nhưng cũng thừa nhận điểm mạnh của đối thủ (ví dụ: Kymdan về sự cao cấp).";
+                    const userPrompt = query;
+                    callGeminiAPI(systemPrompt, userPrompt, aeoQueryResult);
+                });
+            }
+
+            // 3.2. Nút "Sáng Tạo Nội Dung" (Mục 6)
+            if (generateContentButton) {
+                generateContentButton.addEventListener('click', () => {
+                    const type = contentSelect.value;
+                    const systemPrompt = "Bạn là một chuyên gia sáng tạo nội dung (Content Creator) cho ngành hàng nệm. Hãy tạo ra các ý tưởng ngắn gọn, hấp dẫn, dễ thực thi.";
+                    let userPrompt = '';
+                    if (type === 'tiktok') {
+                        userPrompt = "Tạo 3 ý tưởng kịch bản TikTok (dưới 30 giây) để thể hiện độ bền hoặc sự êm ái của nệm Vạn Thành. Định dạng: [Ý Tưởng 1], [Cảnh Quay], [Thông Điệp].";
+                    } else {
+                        userPrompt = "Tạo 1 bài đăng cho Facebook Group 'Hội Yêu Giấc Ngủ Việt' với mục tiêu thu thập khảo sát (Zero-Party Data) về thói quen ngủ của người dùng. Bài đăng phải thân thiện, đặt câu hỏi tương tác.";
+                    }
+                    callGeminiAPI(systemPrompt, userPrompt, contentResult);
+                });
+            }
+
+            // 3.3. Nút "Phát Triển Gói Combo" (Mục 7)
+            if (generateComboButton) {
+                generateComboButton.addEventListener('click', () => {
+                    const comboType = comboTypeSelect.value;
+                    const systemPrompt = "Bạn là Giám đốc Phát triển Sản phẩm. Hãy phác thảo chi tiết một gói combo phòng ngủ cho Nệm Vạn Thành. Tập trung vào giá trị mang lại cho khách hàng.";
+                    const userPrompt = `Hãy phác thảo Gói Combo: "${comboType}". Nêu rõ: \n1. Tên Gói Hấp Dẫn: \n2. Đối Tượng Khách Hàng: \n3. Các Sản Phẩm Bao Gồm (Nệm Vạn Thành + 2-3 sản phẩm khác): \n4. Thông Điệp Marketing Chính:`;
+                    callGeminiAPI(systemPrompt, userPrompt, comboResultBox);
+                });
+            }
+            
+            // 3.4. Nút "Sáng Tạo Slogan" (Mục 3)
+            if (generateSloganButton) {
+                generateSloganButton.addEventListener('click', () => {
+                    const systemPrompt = "Bạn là một Copywriter chuyên nghiệp. Hãy tạo ra các slogan ngắn gọn, mạnh mẽ, và dễ nhớ.";
+                    const userPrompt = "Tạo 5 slogan cho Nệm Vạn Thành dựa trên định vị cốt lõi: 'BỀN BỈ TỪ 1980'. Các slogan phải gợi lên sự tin cậy, chất lượng vượt thời gian và di sản.";
+                    callGeminiAPI(systemPrompt, userPrompt, sloganResultBox);
+                });
+            }
+
+            // 3.5. Nút "Báo Cáo KPI" (Mục 8)
+            if (generateKPIReportButton) {
+                generateKPIReportButton.addEventListener('click', () => {
+                    const systemPrompt = "Bạn là một Marketing Manager. Hãy viết một email báo cáo tiến độ ngắn gọn, chuyên nghiệp cho Ban Lãnh Đạo. Tập trung vào dữ liệu và hành động tiếp theo.";
+                    const userPrompt = "Soạn thảo một email báo cáo tiến độ (dạng gạch đầu dòng) dựa trên các KPI giả định sau: \n- Tỷ lệ vi phạm MAP: Giảm 90% (Thành công). \n- Số leads O2O: Tăng 150% (Vượt mong đợi). \n- Doanh thu Affiliate: Đang xây dựng (Cần theo dõi). \n- Hành động tiếp theo: Triển khai GMB cho 100 đại lý tiếp theo.";
+                    callGeminiAPI(systemPrompt, userPrompt, kpiReportResultBox);
+                });
+            }
+
+            // 3.6. Nút "Mô Tả Sản Phẩm" (Mục 4)
+            if (generateProductDescButton) {
+                generateProductDescButton.addEventListener('click', () => {
+                    const tier = document.getElementById('productTierSelect').value;
+                    const systemPrompt = "Bạn là một chuyên gia SEO-Copywriting. Hãy viết mô tả sản phẩm hấp dẫn, tập trung vào lợi ích khách hàng và chứa các từ khóa liên quan.";
+                    let userPrompt = `Viết một mô tả sản phẩm (khoảng 100 từ) cho website Nệm Vạn Thành, phân khúc ${tier}.`;
+                    if (tier === 'GOOD') {
+                        userPrompt += " Tập trung vào: 'giá rẻ', 'tiết kiệm', 'bền bỉ', 'gấp 3 tiện lợi'.";
+                    } else if (tier === 'BETTER') {
+                        userPrompt += " Tập trung vào: 'cân bằng', 'nâng đỡ', 'êm ái', 'cao su thiên nhiên', 'lò xo túi'.";
+                    } else {
+                        userPrompt += " Tập trung vào: 'cao cấp', 'sang trọng', 'di sản', 'nguyên liệu tinh khiết', 'giấc ngủ chuyên sâu'.";
+                    }
+                    callGeminiAPI(systemPrompt, userPrompt, productDescResult);
+                });
+            }
+
+            // 3.7. Nút "Soạn Thảo Email MAP" (Mục 5)
+            if (generateMAPEmailButton) {
+                generateMAPEmailButton.addEventListener('click', () => {
+                    const systemPrompt = "Bạn là Trưởng phòng Kinh doanh. Hãy viết một email thông báo cho đại lý với giọng điệu vừa nghiêm túc (về chế tài) vừa mang tính hợp tác (vì lợi ích chung).";
+                    const userPrompt = "Soạn thảo một email trang trọng gửi toàn bộ 1000 đại lý của Nệm Vạn Thành, thông báo về việc áp dụng 'Chính Sách Giá Quảng Cáo Tối Thiểu (MAP)' từ tháng tới. Nêu rõ: \n1. Lý do: Bảo vệ giá trị thương hiệu và sự công bằng cho đại lý. \n2. Quy định: Cấm quảng cáo chiết khấu X% (ví dụ: 15%) trên mọi kênh online. \n3. Chế tài: Nêu rõ 3 cấp độ (Cảnh cáo, Cắt chiết khấu, Ngừng cung cấp). \n4. Kêu gọi hợp tác vì mục tiêu chung.";
+                    callGeminiAPI(systemPrompt, userPrompt, mapEmailResult);
+                });
+            }
+            
+            // 3.8. Nút "Gợi Ý Câu Hỏi" (Tất cả các mục)
+            document.querySelectorAll('.brainstorm-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.dataset.sectionId;
+                    const sectionContent = button.dataset.sectionContent;
+                    const resultElement = document.getElementById(`brainstormResult-${sectionId}`);
+
+                    const systemPrompt = "Bạn là một nhà tư vấn chiến lược cấp cao (Strategic Consultant) đang họp review kế hoạch marketing. Nhiệm vụ của bạn là đặt ra 3 câu hỏi/vấn đề mở rộng 'sắc sảo' và 'mang tính xây dựng' để thử thách và làm rõ hơn về mục này. Đừng hỏi câu hỏi 'có/không', hãy hỏi 'như thế nào', 'điều gì sẽ xảy ra nếu', 'làm sao để đo lường'.";
+                    const userPrompt = `Dựa trên nội dung của mục này: "${sectionContent}", hãy tạo ra 3 câu hỏi/vấn đề thảo luận mở rộng.`;
+                    
+                    callGeminiAPI(systemPrompt, userPrompt, resultElement);
+                });
+            });
+
+            // 4. Khởi tạo Gắn Event Listeners cho các nút Góp Ý
+            document.querySelectorAll('.feedback-button').forEach(button => {
+                button.addEventListener('click', async () => {
+                    if (!isAuthReady || !userId) {
+                        showModal("Lỗi: Chưa kết nối được với máy chủ góp ý. Vui lòng thử lại sau.", false);
+                        return;
+                    }
+
+                    const sectionId = button.dataset.sectionId;
+                    const sectionName = button.dataset.sectionName;
+                    const textarea = document.getElementById(`feedback-${sectionId}`);
+                    const content = textarea.value.trim();
+
+                    if (!content) {
+                        showModal("Lỗi: Vui lòng nhập nội dung góp ý.", false);
+                        return;
+                    }
+
+                    showModal("Đang gửi góp ý...", true);
+                    try {
+                        await addDoc(feedbackCollection, {
+                            sectionId: sectionId,
+                            sectionName: sectionName,
+                            content: content,
+                            userId: userId,
+                            createdAt: serverTimestamp()
+                        });
+                        textarea.value = ''; // Xóa nội dung sau khi gửi
+                        showModal("Đã gửi góp ý thành công!", false);
+                    } catch (error) {
+                        console.error("Lỗi khi gửi góp ý:", error);
+                        showModal(`Lỗi: Không thể gửi góp ý. ${error.message}`, false);
+                    }
+                });
+            });
+
+            // 5. Khởi tạo Gắn Event Listeners cho Chatbot
+            if (chatFab) {
+                chatFab.addEventListener('click', () => chatWindow.classList.toggle('visible'));
+            }
+            if (chatClose) {
+                chatClose.addEventListener('click', () => chatWindow.classList.remove('visible'));
+            }
+            if (chatSend) {
+                chatSend.addEventListener('click', handleChatSend);
+            }
+            if (chatInput) {
+                chatInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') handleChatSend();
+                });
+            }
+
+            console.log("Khởi tạo UI thành công.");
+        };
+
+
+        /**
+         * Ưu tiên 2: Khởi tạo Firebase
+         * Chạy song song, không chặn UI
+         */
+        const initializeFirebaseAndComments = async () => {
+            console.log("Bắt đầu khởi tạo Firebase...");
+
+            // 1. Xác thực Firebase
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    console.log("Firebase Auth State Changed. UserID:", user.uid);
+                    userId = user.uid;
+                    isAuthReady = true;
+                }
+            });
+
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                // onAuthStateChanged sẽ tự động cập nhật userId và isAuthReady
+            } catch (error) {
+                console.error("Lỗi xác thực Firebase:", error);
+                showModal("Lỗi: Không thể kết nối với máy chủ xác thực. Tính năng góp ý sẽ bị tắt.", false);
+            }
+
+            // 2. Lắng nghe Góp ý (Real-time)
+            const feedbackDisplayArea = document.getElementById('feedbackDisplayArea');
+            const feedbackAccordionButton = document.getElementById('feedbackAccordionButton');
+            if (!feedbackDisplayArea || !feedbackAccordionButton) {
+                 console.error("Không tìm thấy khu vực hiển thị góp ý.");
+                 return;
+            }
+
+            const q = query(feedbackCollection); // Sửa lỗi: Không dùng orderBy để tránh lỗi index
+
+            onSnapshot(q, (snapshot) => {
+                console.log("Nhận được cập nhật góp ý...");
+                if (snapshot.empty) {
+                    feedbackDisplayArea.innerHTML = '<p class="text-gray-600">Chưa có góp ý nào. Hãy là người đầu tiên!</p>';
+                    feedbackAccordionButton.textContent = "Xem Góp Ý Chung (0)";
+                    return;
+                }
+
+                let feedbackHTML = '';
+                let feedbackCount = 0;
+                
+                // Sắp xếp thủ công vì đã bỏ orderBy
+                const docs = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                docs.sort((a, b) => {
+                    const timeA = a.createdAt ? a.createdAt.toMillis() : 0;
+                    const timeB = b.createdAt ? b.createdAt.toMillis() : 0;
+                    return timeB - timeA; // Sắp xếp mới nhất lên đầu
+                });
+
+                docs.forEach(data => {
+                    feedbackCount++;
+                    feedbackHTML += `
+                        <div class="feedback-item">
+                            <div class="feedback-header">
+                                <span class="feedback-section">${data.sectionName || 'Góp ý chung'}</span>
+                                <span class="feedback-time">${formatTimestamp(data.createdAt)}</span>
+                            </div>
+                            <p class="feedback-content">${data.content}</p>
+                            <p class="feedback-user">UserID: ${data.userId.substring(0, 10)}...</p>
+                        </div>
+                    `;
+                });
+
+                feedbackDisplayArea.innerHTML = feedbackHTML;
+                feedbackAccordionButton.textContent = `Xem Góp Ý Chung (${feedbackCount})`;
+
+            }, (error) => {
+                console.error("Lỗi khi lắng nghe góp ý:", error);
+                feedbackDisplayArea.innerHTML = `<p class="text-red-500">Lỗi: Không thể tải được các góp ý. ${error.message}</p>`;
+            });
+
+            console.log("Khởi tạo Firebase thành công.");
+        };
+
+        // --- LOGIC RIÊNG CỦA CHATBOT ---
+
+        // Bối cảnh cho chatbot
+        const CHATBOT_SYSTEM_PROMPT = `Bạn là Trợ lý AI chuyên nghiệp, được tích hợp vào một trang web báo cáo chiến lược marketing cho Nệm Vạn Thành.
+        Bối cảnh của kế hoạch này là: Vạn Thành đang gặp 3 vấn đề lớn:
+        1. 'Loạn Giá' (do 1000+ đại lý tự phá giá).
+        2. 'Xung Đột Kênh' (giữa đại lý và 44 showroom).
+        3. 'Điểm Yếu Kỹ Thuật Số' (website, fanpage yếu).
+        
+        Mục tiêu chiến lược là:
+        - Tái định vị: 'VẠN THÀNH - BỀN BỈ TỪ 1980'.
+        - Giải pháp kênh: Áp dụng chính sách MAP (Giá quảng cáo tối thiểu), xây dựng O2O, và mở 1 Official Mall duy nhất.
+        - Giải pháp truyền thông: Tập trung vào SEO Local (GMB), AEO (Answer Engine), VEO (Video), và Community.
+        - Cơ hội mới: Dùng showroom làm 'One-Stop-Shop' (bán thêm nội thất).
+
+        Nhiệm vụ của bạn:
+        - Trả lời các câu hỏi của người dùng về bản kế hoạch này.
+        - Tóm tắt các mục nếu được yêu cầu.
+        - Gợi ý, brainstorm các ý tưởng mới dựa trên bối cảnh đã cho.
+        - Hãy luôn thân thiện, chuyên nghiệp và trả lời ngắn gọn, tập trung vào chiến lược.`;
+
+        let chatHistory = [
+            { role: "user", parts: [{ text: "Bắt đầu cuộc trò chuyện" }] },
+            { role: "model", parts: [{ text: "Xin chào! Tôi có thể giúp gì cho bạn về kế hoạch marketing này?" }] }
+        ];
+
+        /**
+         * Thêm tin nhắn vào UI của chat
+         */
+        const addMessageToChatUI = (message, sender) => {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+
+            // Xóa "đang suy nghĩ" nếu có
+            const thinking = chatMessages.querySelector('.thinking');
+            if (thinking) thinking.remove();
+
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Tự động cuộn xuống
+        };
+
+        /**
+         * Xử lý khi người dùng gửi tin nhắn
+         */
+        const handleChatSend = () => {
+            const chatInput = document.getElementById('chatInput');
+            if (!chatInput) return;
+            
+            const userMessage = chatInput.value.trim();
+            if (!userMessage) return;
+
+            addMessageToChatUI(userMessage, 'user');
+            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+            chatInput.value = '';
+
+            // Thêm "đang suy nghĩ"
+            const chatMessages = document.getElementById('chatMessages');
+            const thinkingElement = document.createElement('div');
+            thinkingElement.classList.add('chat-message', 'model', 'thinking');
+            thinkingElement.innerHTML = `<span class="loader-dots"></span><span class="loader-dots"></span><span class="loader-dots"></span>`;
+            chatMessages.appendChild(thinkingElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Gọi API Chatbot
+            callChatbotAPI(userMessage);
+        };
+
+        /**
+         * Gọi Gemini API (Cho Chatbot)
+         */
+        const callChatbotAPI = async (userMessage) => {
+            try {
+                const apiKey = ""; // API key sẽ được tự động cung cấp
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: chatHistory,
+                    systemInstruction: {
+                        parts: [{ text: CHATBOT_SYSTEM_PROMPT }]
+                    },
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const modelMessage = candidate.content.parts[0].text;
+                    addMessageToChatUI(modelMessage, 'model');
+                    chatHistory.push({ role: "model", parts: [{ text: modelMessage }] });
+                } else {
+                    throw new Error('Phản hồi từ AI không hợp lệ.');
+                }
+
+            } catch (error) {
+                console.error('Lỗi gọi Chatbot API:', error);
+                addMessageToChatUI(`Lỗi: ${error.message}`, 'model');
+            }
+        };
+
+
+        // --- KHỞI CHẠY ---
+        // Ưu tiên 1: Khởi tạo giao diện ngay lập tức
+        initializeUI();
+        
+        // Ưu tiên 2: Khởi tạo Firebase và tải bình luận (chạy song song)
+        initializeFirebaseAndComments();
+
+    </script>
+</body>
+</html>
